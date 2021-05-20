@@ -1,4 +1,4 @@
-require 'prioritizer'
+require 'array_sort_prioritizer'
 
 describe Node do
     it "can be created" do
@@ -14,8 +14,8 @@ describe Node do
     end
 end
 
-describe Prioritizer do
-    let(:my_prioritizer) { Prioritizer.new }
+describe ArraySortPrioritizer do
+    let(:my_prioritizer) { ArraySortPrioritizer.new }
 
     context "#is_empty" do
         it "is true for an empty queue" do
@@ -59,22 +59,44 @@ describe Prioritizer do
         let(:bigness) { 5000 }
         let(:values) { big_array(bigness) }
         let(:priorities) { big_array(bigness) }
-        # let(:list_prioritizer) { ListPrioritizer}
+        # let(:list_prioritizer) { ListArraySortPrioritizer}
+        let(:queues) { [ArraySortPrioritizer] }
+        # let(:queues) { [ArraySortPrioritizer, ListArraySortPrioritizer] }
 
-        it "can do a bunch of numbers" do
-            start_time = Time.now
-            bigness.times do |i|
-                my_prioritizer.push(values[i], priorities[i])
+        it "can do a bunch of random numbers" do
+            queues.each do |q|
+                my_queue = q.send(:new)
+                start_time = Time.now
+                bigness.times do |i|
+                    my_queue.push(values[i], priorities[i])
+                end
+                end_time = Time.now
+                puts "Time elapsed for #{bigness} with #{q}: #{end_time - start_time} seconds."
             end
-            end_time = Time.now
-            puts "Time elapsed for #{bigness} with array.sort: #{end_time - start_time} seconds."
+        end
 
-            # start_time = Time.now
-            # bigness.times do |i|
-            #     list_prioritizer.push(values[i], priorities[i])
-            # end
-            # end_time = Time.now
-            # puts "Time elapsed for #{bigness} with sorted list: #{end_time - start_time} seconds."
+        it "can do a bunch of small to big ordered numbers" do
+            queues.each do |q|
+                my_queue = q.send(:new)
+                start_time = Time.now
+                bigness.times do |i|
+                    my_queue.push(i, i)
+                end
+                end_time = Time.now
+                puts "Time elapsed for #{bigness} with #{q}: #{end_time - start_time} seconds."
+            end
+        end
+
+        it "can do a bunch of big to small ordered numbers" do
+            queues.each do |q|
+                my_queue = q.send(:new)
+                start_time = Time.now
+                bigness.times do |i|
+                    my_queue.push(bigness - i, bigness - i)
+                end
+                end_time = Time.now
+                puts "Time elapsed for #{bigness} with #{q}: #{end_time - start_time} seconds."
+            end
         end
     end
 end

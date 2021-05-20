@@ -12,7 +12,7 @@ class Node
     end
 end
 
-class Prioritizer
+class ArraySortPrioritizer
     def initialize
         @nodes = []
     end
