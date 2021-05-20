@@ -1,5 +1,6 @@
 require 'array_sort_prioritizer'
 require 'sorted_list_prioritizer'
+require 'gap_array_prioritizer'
 
 describe Node do
     it "can be created" do
@@ -16,7 +17,7 @@ describe Node do
 end
 
 describe ArraySortPrioritizer do
-    let(:my_prioritizer) { ArraySortPrioritizer.new }
+    let(:my_prioritizer) { GapArrayPrioritizer.new }
 
     context "#is_empty" do
         it "is true for an empty queue" do
@@ -34,12 +35,12 @@ describe ArraySortPrioritizer do
             my_prioritizer.push("jean15", 15)
             my_prioritizer.push("jean8", 8)
             best = my_prioritizer.pop
-            expect(best.value).to eql "jean15"
-            expect(best.priority).to eql 15
+            expect(best).to eql "jean15"
+            #expect(best.priority).to eql 15
         end
 
         it "removes the item that was popped" do
-            my_prioritizer.push("some value")
+            my_prioritizer.push("some value",0)
             my_prioritizer.pop
             expect(my_prioritizer.is_empty?).to eql true
         end
@@ -64,7 +65,8 @@ describe "performance comparisons" do
     let(:queues) {
         [
             ArraySortPrioritizer,
-            SortedListPrioritizer
+            SortedListPrioritizer,
+            GapArrayPrioritizer
         ]
     }
 
