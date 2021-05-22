@@ -77,7 +77,7 @@ describe "performance comparisons" do
         end
     end
 
-    let(:bigness) { 1000 }
+    let(:bigness) { 50 }
     let(:values) { big_array(bigness) }
     let(:priorities) { big_array(bigness) }
     let(:queues) {
@@ -88,9 +88,14 @@ describe "performance comparisons" do
             HeapPrioritizer,
         ]
     }
+    let(:format_string) { '%-24s %-18s %s' }
+    def title_row
+        format_string % ["Prioritizer type", "push time", "pop time"]
+    end
 
     it "can do a bunch of random numbers" do
         puts "sorting #{bigness} random numbers"
+        puts title_row
         queues.each do |q|
             my_queue = q.send(:new)
             start_time = Time.now
@@ -98,12 +103,21 @@ describe "performance comparisons" do
                 my_queue.push(values[i], priorities[i])
             end
             end_time = Time.now
-            puts "    #{q}: #{end_time - start_time} seconds."
+            push_time = end_time - start_time
+
+            start_time = Time.now
+            bigness.times do
+                my_queue.pop
+            end
+            end_time = Time.now
+            pop_time = end_time - start_time
+            puts format_string % [q, push_time, pop_time]
         end
     end
 
     it "can do a bunch of small to big ordered numbers" do
         puts "sorting #{bigness} small to big numbers"
+        puts title_row
         queues.each do |q|
             my_queue = q.send(:new)
             start_time = Time.now
@@ -111,12 +125,21 @@ describe "performance comparisons" do
                 my_queue.push(i, i)
             end
             end_time = Time.now
-            puts "    #{q}: #{end_time - start_time} seconds."
+            push_time = end_time - start_time
+
+            start_time = Time.now
+            bigness.times do
+                my_queue.pop
+            end
+            end_time = Time.now
+            pop_time = end_time - start_time
+            puts format_string % [q, push_time, pop_time]
         end
     end
 
     it "can do a bunch of big to small ordered numbers" do
         puts "sorting #{bigness} big to small numbers"
+        puts title_row
         queues.each do |q|
             my_queue = q.send(:new)
             start_time = Time.now
@@ -124,7 +147,15 @@ describe "performance comparisons" do
                 my_queue.push(bigness - i, bigness - i)
             end
             end_time = Time.now
-            puts "    #{q}: #{end_time - start_time} seconds."
+            push_time = end_time - start_time
+
+            start_time = Time.now
+            bigness.times do
+                my_queue.pop
+            end
+            end_time = Time.now
+            pop_time = end_time - start_time
+            puts format_string % [q, push_time, pop_time]
         end
     end
 end
