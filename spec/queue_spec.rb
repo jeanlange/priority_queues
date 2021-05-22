@@ -1,6 +1,7 @@
 require 'array_sort_prioritizer'
 require 'sorted_list_prioritizer'
 require 'gap_array_prioritizer'
+require 'heap_prioritizer'
 
 describe Node do
     it "can be created" do
@@ -36,6 +37,8 @@ RSpec.shared_examples "queue functionality" do |queue_type|
             my_prioritizer.push("jean8", 8)
             best = my_prioritizer.pop
             expect(best).to eql "jean15"
+            best = my_prioritizer.pop
+            expect(best).to eql "jean8"
         end
 
         it "removes the item that was popped" do
@@ -59,8 +62,12 @@ RSpec.describe SortedListPrioritizer do
     include_examples "queue functionality", SortedListPrioritizer
 end
 
-RSpec.describe GapArrayPrioritizer do
-    include_examples "queue functionality", GapArrayPrioritizer
+# RSpec.describe GapArrayPrioritizer do
+#     include_examples "queue functionality", GapArrayPrioritizer
+# end
+
+RSpec.describe HeapPrioritizer do
+    include_examples "queue functionality", HeapPrioritizer
 end
 
 describe "performance comparisons" do
@@ -70,14 +77,15 @@ describe "performance comparisons" do
         end
     end
 
-    let(:bigness) { 10 }
+    let(:bigness) { 1000 }
     let(:values) { big_array(bigness) }
     let(:priorities) { big_array(bigness) }
     let(:queues) {
         [
             ArraySortPrioritizer,
             SortedListPrioritizer,
-            GapArrayPrioritizer
+            GapArrayPrioritizer,
+            HeapPrioritizer,
         ]
     }
 
