@@ -2,6 +2,9 @@ class SortedListPrioritizer
     def initialize
         @first = OrderedNode.new
     end
+    def is_empty?
+        @first.nil? || (!@first.get(0) && !@first.next)
+    end
     def push value, priority
         @first.add value, priority
     end
@@ -16,11 +19,21 @@ class SortedListPrioritizer
         @first = @first.next
         return value
     end
+    def print
+        node = @first
+        output = ""
+        while node
+            output << node.value + ", "
+            node = node.next
+        end
+        output
+    end
 end
 
 class OrderedNode
     attr_reader :priority
     attr_reader :next
+    attr_reader :value
 
     def initialize
         @value = nil

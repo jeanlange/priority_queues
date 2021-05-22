@@ -13,6 +13,7 @@ class Node
 end
 
 class ArraySortPrioritizer
+    attr_accessor :nodes
     def initialize
         @nodes = []
     end
@@ -28,6 +29,11 @@ class ArraySortPrioritizer
     end
 
     def pop
-        @nodes.delete_at(-1)
+        node = @nodes.delete_at(-1)
+        if node.nil?
+            return node
+        else
+            return node.value
+        end
     end
 end

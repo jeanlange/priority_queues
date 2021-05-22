@@ -16,8 +16,8 @@ describe Node do
     end
 end
 
-describe ArraySortPrioritizer do
-    let(:my_prioritizer) { GapArrayPrioritizer.new }
+RSpec.shared_examples "queue functionality" do |queue_type|
+    let(:my_prioritizer) { queue_type.send(:new) }
 
     context "#is_empty" do
         it "is true for an empty queue" do
@@ -36,7 +36,6 @@ describe ArraySortPrioritizer do
             my_prioritizer.push("jean8", 8)
             best = my_prioritizer.pop
             expect(best).to eql "jean15"
-            #expect(best.priority).to eql 15
         end
 
         it "removes the item that was popped" do
@@ -52,6 +51,18 @@ describe ArraySortPrioritizer do
     end
 end
 
+RSpec.describe ArraySortPrioritizer do
+    include_examples "queue functionality", ArraySortPrioritizer
+end
+
+RSpec.describe SortedListPrioritizer do
+    include_examples "queue functionality", SortedListPrioritizer
+end
+
+RSpec.describe GapArrayPrioritizer do
+    include_examples "queue functionality", GapArrayPrioritizer
+end
+
 describe "performance comparisons" do
     def big_array(size)
         (1..size).map do
@@ -59,7 +70,7 @@ describe "performance comparisons" do
         end
     end
 
-    let(:bigness) { 5000 }
+    let(:bigness) { 10 }
     let(:values) { big_array(bigness) }
     let(:priorities) { big_array(bigness) }
     let(:queues) {
