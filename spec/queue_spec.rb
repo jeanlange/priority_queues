@@ -62,9 +62,9 @@ RSpec.describe SortedListPrioritizer do
     include_examples "queue functionality", SortedListPrioritizer
 end
 
-# RSpec.describe GapArrayPrioritizer do
-#     include_examples "queue functionality", GapArrayPrioritizer
-# end
+RSpec.describe GapArrayPrioritizer do
+    include_examples "queue functionality", GapArrayPrioritizer
+end
 
 RSpec.describe HeapPrioritizer do
     include_examples "queue functionality", HeapPrioritizer

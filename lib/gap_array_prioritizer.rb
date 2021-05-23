@@ -4,16 +4,16 @@ class GapArrayPrioritizer
         @index = nil
     end
     def push value, priority
-        if @base[priority] == nil
+        if @base[priority].nil?
             @base[priority] = []
         end
         @base[priority] << value
-        if @index == nil || @index < priority
+        if @index.nil? || @index < priority
             @index = priority
         end
     end
     def pop
-        if(@index == nil || @base[@index] == nil || @base[@index].length == 0)
+        if(@index.nil? || @base[@index].nil? || @base[@index].empty?)
             return nil
         end
         value = @base[@index].delete_at(0)
@@ -22,14 +22,14 @@ class GapArrayPrioritizer
     end
     def get_next
         @base.reverse_each.with_index do |value, index|
-            if value != nil && value.length > 0
-                return index
+            if !value.nil? && value.length > 0
+                return @base.length - 1 - index
             end
         end
         return nil
     end
     def is_empty?
-        return @index == nil
+        return @index.nil?
     end
 end
 
