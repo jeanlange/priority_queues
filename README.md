@@ -12,22 +12,22 @@ Some performance results:
 performance comparisons
 sorting 5000 random numbers
 Prioritizer type         push time          pop time
-ArraySortPrioritizer     10.56228           0.000493
-SortedListPrioritizer    1.486182           0.000561
-GapArrayPrioritizer      0.003143           0.001507
-HeapPrioritizer          0.010624           0.016742
+ArraySortPrioritizer     10.856191          0.0005
+SortedListPrioritizer    1.547606           0.000588
+GapArrayPrioritizer      0.003299           0.001384
+HeapPrioritizer          0.01125            0.003895
 
 sorting 5000 small to big numbers
 Prioritizer type         push time          pop time
-ArraySortPrioritizer     2.468454           0.000482
-SortedListPrioritizer    0.002601           0.000505
-GapArrayPrioritizer      0.006451           0.001788
-HeapPrioritizer          0.008582           0.016696
+ArraySortPrioritizer     2.503629           0.000532
+SortedListPrioritizer    0.002647           0.000571
+GapArrayPrioritizer      0.006918           0.001736
+HeapPrioritizer          0.008984           0.004642
 
 sorting 5000 big to small numbers
 Prioritizer type         push time          pop time
-ArraySortPrioritizer     18.461632          0.000479
-SortedListPrioritizer    2.997177           0.000507
-GapArrayPrioritizer      0.006048           0.00168
-HeapPrioritizer          0.004734           0.016672
+ArraySortPrioritizer     19.827923          0.000575
+SortedListPrioritizer    3.162693           0.000567
+GapArrayPrioritizer      0.005476           0.001799
+HeapPrioritizer          0.004779           0.004771
   ```

@@ -77,7 +77,7 @@ describe "performance comparisons" do
         end
     end
 
-    let(:bigness) { 50 }
+    let(:bigness) { 5000 }
     let(:values) { big_array(bigness) }
     let(:priorities) { big_array(bigness) }
     let(:queues) {
