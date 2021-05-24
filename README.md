@@ -4,8 +4,8 @@ For AcademyPGH book club, we wanted to explore some different data structures. I
 Herein we have:
 - `array_sort_prioritizer.rb`: This is a naive implementation using an array as the base data structure and keeping it sorted with .sort.
 - `sorted_list_prioritizer.rb`: This is a slightly less naive implementation using a linked list as the base data structure and inserting the new item in place in the list to keep it sorted.
-- `gap_array_prioritizer.rb`: This is a broken implementation!! Very fast, though
-- `heap_prioritizer.rb`: Pushes into a max binary heap.
+- `gap_array_prioritizer.rb`: Uses a sparse array of arrays, where the priority determines the position. Slower at popping.
+- `heap_prioritizer.rb`: Pushes into a max binary heap. The 'usual implementation' of a priority queue.
 
 Some performance results:
 ```
